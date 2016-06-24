@@ -17,7 +17,7 @@ class VerketteteListe {
 		// IS EMPTY | determine if list is empty
 		//
 		public boolean isEmpty() {
-
+			return head == null;
 		}
 
 		// INSERT | insert node at beginning of list
