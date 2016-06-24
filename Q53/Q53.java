@@ -132,11 +132,14 @@ class VerketteteSchlange extends VerketteteListe {
 		if (node.next == null) tail = node;
 	}
 
-
+	// APPEND | append node to end of list
+	//
 	public void append(int i) {
 
 	}
 
+	// APPEND | append linked list to end of list
+	//
 	public void append(VerketteteListe l) {
 
 	}
