@@ -14,30 +14,38 @@ class VerketteteListe {
 		// ATTRIBUTES
     Knoten head;
 
-		// CONSTRUCTOR
+		// IS EMPTY | determine if list is empty
+		//
+		public boolean isEmpty() {
+
+		}
+
+		// INSERT | insert node at beginning of list
+		//
     public void insert(int i) {
-			// Insert node at beginning of list
       Knoten node = new Knoten(i);
       node.next = head;
       head = node;
     }
 
+		// INSERT | insert new node after specific node
+		//
 		public void insert(int i, Knoten k) {
-			// Insert new node with value i after node k
 			Knoten node = new Knoten(i);
 			node.next = k.next;
 			k.next = node;
 		}
 
+		// DELETE | delete head of list & return true, else false
+		//
 		public boolean delete() {
-			// Delete the head of the list & return true, else return false
 			if (head != null) {head = head.next; return true;}
 			return false;
 		}
 
+		// DELETE | delete node k from list & return true, else false
+		//
 		public boolean delete(Knoten k) {
-			// Delete node k from the list & return true, else return false
-
 			// traverse list
 			for (Knoten node = head; node != null; node = node.next) {
 				// if next node is k
@@ -50,16 +58,18 @@ class VerketteteListe {
 			return false;
 		}
 
+		// TRAVERSE | traverse the list & print each node
+		//
     public void traverse() {
-			// Traverse the list & print each node
       for (Knoten node = head; node != null; node = node.next) {
           System.out.print(node.value + ", ");
       }
 			System.out.println();
     }
 
+		// NODE FOR VALUE | return first node with value i, else null
+		//
 		public Knoten nodeForValue(int i) {
-			// Return the first node with the value i, else null
 			for (Knoten node = head; node != null; node = node.next) {
 				if (node.value == i) return node;
 			}
@@ -101,7 +111,7 @@ class VerketteteListe {
 
 class VerketteteSchlange extends VerketteteListe {
 
-	Knoten end;
+	Knoten tail;
 
 	public void append(int i) {
 
