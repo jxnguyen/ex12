@@ -14,12 +14,6 @@ class VerketteteListe {
 		// ATTRIBUTES
     Knoten head;
 
-		// IS EMPTY | determine if list is empty
-		//
-		public boolean isEmpty() {
-			return head == null;
-		}
-
 		// INSERT | insert node at beginning of list
 		//
     public void insert(int i) {
@@ -46,6 +40,11 @@ class VerketteteListe {
 		// DELETE | delete node k from list & return true, else false
 		//
 		public boolean delete(Knoten k) {
+
+			if (head == k) {
+				delete();
+			}
+
 			// traverse list
 			for (Knoten node = head; node != null; node = node.next) {
 				// if next node is k
@@ -94,7 +93,7 @@ class VerketteteListe {
 				list.insert(20, node);
 				list.traverse();
 
-				System.out.println("Deteling head: " + list.delete());
+				System.out.println("Deleting head: " + list.delete());
 				list.traverse();
 
 				System.out.println("Deleting node 5: " + list.delete(node));
@@ -112,6 +111,27 @@ class VerketteteListe {
 class VerketteteSchlange extends VerketteteListe {
 
 	Knoten tail;
+
+	// INSERT | insert node at beginning of list
+	//
+	public void insert(int i) {
+		Knoten node = new Knoten(i);
+		node.next = head;
+		head = node;
+		// if new node is last node
+		if (node.next == null) tail = node;
+	}
+
+	// INSERT | insert new node after specific node
+	//
+	public void insert(int i, Knoten k) {
+		Knoten node = new Knoten(i);
+		node.next = k.next;
+		k.next = node;
+		// if new node is last node
+		if (node.next == null) tail = node;
+	}
+
 
 	public void append(int i) {
 
