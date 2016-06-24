@@ -13,14 +13,17 @@ class Knoten {
 class VerketteteListe {
 		// ATTRIBUTES
     Knoten head;
+		Knoten tail;
 
 		// INSERT | insert node at beginning of list
 		//
-    public void insert(int i) {
-      Knoten node = new Knoten(i);
-      node.next = head;
-      head = node;
-    }
+		public void insert(int i) {
+			Knoten node = new Knoten(i);
+			node.next = head;
+			head = node;
+			// if new node is last node
+			if (node.next == null) tail = node;
+		}
 
 		// INSERT | insert new node after specific node
 		//
@@ -28,6 +31,8 @@ class VerketteteListe {
 			Knoten node = new Knoten(i);
 			node.next = k.next;
 			k.next = node;
+			// if new node is last node
+			if (node.next == null) tail = node;
 		}
 
 		// DELETE | delete head of list & return true, else false
@@ -74,73 +79,65 @@ class VerketteteListe {
 			}
 			return null;
 		}
-
-		// MAIN
-		//
-		public static void main(String [] x) {
-
-				VerketteteListe list = new VerketteteListe();
-				// dummy values
-				for (int i = 10; i > 0; i--) {
-					list.insert(i);
-				}
-
-				System.out.println("Linked list:");
-				list.traverse();
-
-				System.out.println("Inserting 20 after 5:");
-				Knoten node = list.nodeForValue(5);
-				list.insert(20, node);
-				list.traverse();
-
-				System.out.println("Deleting head: " + list.delete());
-				list.traverse();
-
-				System.out.println("Deleting node 5: " + list.delete(node));
-				list.traverse();
-
-				node = new Knoten(12);
-				System.out.println("Deleting node not in list: " + list.delete(node));
-				list.traverse();
-
-				list.head = null;
-				System.out.println("Deleting from empty list: " + list.delete());
-		}
 }
 
 class VerketteteSchlange extends VerketteteListe {
 
-	Knoten tail;
-
-	// INSERT | insert node at beginning of list
-	//
-	public void insert(int i) {
-		Knoten node = new Knoten(i);
-		node.next = head;
-		head = node;
-		// if new node is last node
-		if (node.next == null) tail = node;
-	}
-
-	// INSERT | insert new node after specific node
-	//
-	public void insert(int i, Knoten k) {
-		Knoten node = new Knoten(i);
-		node.next = k.next;
-		k.next = node;
-		// if new node is last node
-		if (node.next == null) tail = node;
-	}
-
 	// APPEND | append node to end of list
 	//
 	public void append(int i) {
-
+		Knoten node = new Knoten(i);
+		// if list empty
+		if (head == null) {
+			// single element
+			head = tail = node;
+		}
+		else {
+			// insert after tail & update tail
+			tail.next = node;
+			tail = node;
+		}
 	}
 
 	// APPEND | append linked list to end of list
 	//
 	public void append(VerketteteListe l) {
+		// if list empty
+		if (head == null) {
+			head = l.head;
+			tail = l.tail;
+		}
+		else {
+			tail.next = l.head;
+			tail = l.tail;
+		}
+	}
+}
+
+class Q53 {
+
+	// MAIN
+	//
+	public static void main(String [] x) {
+
+			VerketteteSchlange list = new VerketteteSchlange();
+			VerketteteListe list2 = new VerketteteListe();
+			// dummy values
+			for (int i = 10; i > 0; i--) {
+				list.insert(i);
+				list2.insert(i*11);
+			}
+
+			System.out.println("Linked list:");
+			list.traverse();
+
+			System.out.println("Apppending list:");
+			list.append(list2);
+			list.traverse();
+			
+			System.out.println("Appending 20:");
+			list.append(20);
+			list.traverse();
 
 	}
 }
