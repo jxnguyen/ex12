@@ -38,24 +38,35 @@ class VerketteteListe {
 		// DELETE | delete head of list & return true, else false
 		//
 		public boolean delete() {
-			if (head != null) {head = head.next; return true;}
+			// if a single element in list
+			if (head != null && head == tail) {
+				head = tail = head.next;
+				return true;
+			}
+			// more than one element in list
+			else if (head != null) {
+				head = head.next;
+				return true;
+			}
+			// list empty
 			return false;
 		}
 
 		// DELETE | delete node k from list & return true, else false
 		//
 		public boolean delete(Knoten k) {
-
+			// if k is head
 			if (head == k) {
 				delete();
 			}
-
 			// traverse list
 			for (Knoten node = head; node != null; node = node.next) {
 				// if next node is k
 				if (node.next == k) {
 					// exclude k
 					node.next = k.next;
+					// update tail if needed
+					if (node.next == null) tail = node;
 					return true;
 				}
 			}
@@ -104,10 +115,12 @@ class VerketteteSchlange extends VerketteteListe {
 	public void append(VerketteteListe l) {
 		// if list empty
 		if (head == null) {
+			// take over list
 			head = l.head;
 			tail = l.tail;
 		}
 		else {
+			// concatenate & update tail
 			tail.next = l.head;
 			tail = l.tail;
 		}
@@ -134,7 +147,7 @@ class Q53 {
 			System.out.println("Apppending list:");
 			list.append(list2);
 			list.traverse();
-			
+
 			System.out.println("Appending 20:");
 			list.append(20);
 			list.traverse();
