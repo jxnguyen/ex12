@@ -7,7 +7,7 @@ import java.util.Stack;
 public class Tower {
 
 	public HashMap<Character, Stack<Integer>> towers;
-	private int discs;
+	public int discs;
 	private int moves;
 
 	public Tower(int[] startTower) throws TurmException {
@@ -48,7 +48,22 @@ public class Tower {
 			int top = startTower.pop();
 			endTower.push(top);
 			moves++;
+			System.out.println(this);
 			return top;
+		}
+	}
+
+	public void anyMove(char start, char end) {
+		try {
+			try {
+				move(start, end);
+			}
+			catch (TurmException e) {
+				move(end, start);
+			}
+		}
+		catch (TurmException e) {
+			System.out.println("Error making move.");
 		}
 	}
 
