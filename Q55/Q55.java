@@ -4,11 +4,19 @@ import hanoi.*;
 class Q55 {
 	public static void main(String[] args) {
 
+		int[] nums;
+
 		try {
-			int[] nums = {1,2,3,4,5};
+			// default problem
+			if (args.length == 1) nums = new int[Integer.valueOf(args[0])];
+			// user defined problem size
+			else nums = new int[3];
+			// populate discs
+			for (int i = 0; i < nums.length; i++) nums[i] = i+1;
+			// init tower
 			Tower t = new Tower(nums);
 			System.out.println(t);
-
+			// solve problem
 			HanoiSolution.solve(t);
 		}
 		catch (TurmException e) {
