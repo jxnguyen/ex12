@@ -13,7 +13,7 @@ public class Tower {
 	public Tower(int[] startTower) throws TurmException {
 		// init start tower
 		Stack<Integer> start = new Stack<Integer>();
-		for (int x: startTower) start.push(x);
+		for (int i = startTower.length-1; i >= 0; i--) start.push(startTower[i]);
 		discs = startTower.length;
 		// init towers
 		towers = new HashMap<Character, Stack<Integer>>(3);
@@ -58,10 +58,15 @@ public class Tower {
 		return towers.get('a').empty() && towers.get('b').empty();
 	}
 
-	// //  START TOWER | Produce a copy of the start tower
-	// //
-	// public int[] startTower() {
-	// }
+	//  START TOWER | Produce a copy of the start tower
+	//
+	public int[] startTower() {
+		Integer[] start = new Integer[discs];
+		start = towers.get('a').toArray(start);
+		int[] arr = new int[start.length];
+		for (int i = 0; i < arr.length; i++) arr[i] = start[arr.length - 1 - i];
+		return arr;
+	}
 
 	// MOVES | Return the number of previous moves
 	//
