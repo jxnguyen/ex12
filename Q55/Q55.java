@@ -9,13 +9,19 @@ class Q55 {
 			Tower t = new Tower(nums);
 			System.out.println(t);
 
-			solve(t);
+			HanoiSolution.solve(t);
 		}
 		catch (TurmException e) {
 			System.out.println(e);
 		}
 	}
 
+
+}
+
+class HanoiSolution {
+	// SOLVE | Iterative solution to Tower of Hanoi problem.
+	//
 	static void solve(Tower t) throws TurmException {
 
 			while (!t.finished()) {
