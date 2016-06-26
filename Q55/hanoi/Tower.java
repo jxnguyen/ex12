@@ -8,6 +8,7 @@ public class Tower {
 
 	public HashMap<Character, Stack<Integer>> towers;
 	private int discs;
+	private int moves;
 
 	public Tower(int[] startTower) throws TurmException {
 		// init start tower
@@ -46,6 +47,7 @@ public class Tower {
 		else {
 			int top = startTower.pop();
 			endTower.push(top);
+			moves++;
 			return top;
 		}
 	}
@@ -59,14 +61,13 @@ public class Tower {
 	// //  START TOWER | Produce a copy of the start tower
 	// //
 	// public int[] startTower() {
-	//
 	// }
+
+	// MOVES | Return the number of previous moves
 	//
-	// // MOVES | Return the number of previous moves
-	// //
-	// public final int moves() {
-	//
-	// }
+	public final int moves() {
+		return moves;
+	}
 
 	// TO STRING | Return string representation of self.
 	//
