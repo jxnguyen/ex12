@@ -7,11 +7,13 @@ import java.util.Stack;
 public class Tower {
 
 	public HashMap<Character, Stack<Integer>> towers;
+	private int discs;
 
 	public Tower(int[] startTower) throws TurmException {
 		// init start tower
 		Stack<Integer> start = new Stack<Integer>();
 		for (int x: startTower) start.push(x);
+		discs = startTower.length;
 		// init towers
 		towers = new HashMap<Character, Stack<Integer>>(3);
 		towers.put('a', start);
@@ -69,10 +71,30 @@ public class Tower {
 	// TO STRING | Return string representation of self.
 	//
 	public String toString() {
-		Stack<Integer> a = towers.get('a');
-		Stack<Integer> b = towers.get('b');
-		Stack<Integer> c = towers.get('c');
-		return a.toString() + "\n" + b.toString() + "\n" + c.toString();
+		// stacks
+		Integer[] a = new Integer[discs];
+		Integer[] b = new Integer[discs];
+		Integer[] c = new Integer[discs];
+		a = towers.get('a').toArray(a);
+		b = towers.get('b').toArray(b);
+		c = towers.get('c').toArray(c);
+		// top spacer
+		String result = "\n";
+		// for each line
+		for (int line = 1; line <= discs; line++) {
+			Integer[][] arrs = {a, b, c};
+			for (Integer[] t : arrs) {
+				// space between towers
+				result += "     ";
+
+				if (t[t.length - line] == null) result += "|";
+				else result += t[t.length - line];
+			}
+			result += "\n";
+		}
+		// tower bases
+		result += "    ___   ___   ___\n";
+		return result;
 	}
 
 }
