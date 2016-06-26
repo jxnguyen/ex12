@@ -71,7 +71,7 @@ public class Tower {
 	// TO STRING | Return string representation of self.
 	//
 	public String toString() {
-		// stacks
+		// individual towers
 		Integer[] a = new Integer[discs];
 		Integer[] b = new Integer[discs];
 		Integer[] c = new Integer[discs];
@@ -82,11 +82,13 @@ public class Tower {
 		String result = "\n";
 		// for each line
 		for (int line = 1; line <= discs; line++) {
+			// pack towers into array
 			Integer[][] arrs = {a, b, c};
+			// for each tower
 			for (Integer[] t : arrs) {
 				// space between towers
 				result += "     ";
-
+				// append "column" or number
 				if (t[t.length - line] == null) result += "|";
 				else result += t[t.length - line];
 			}
