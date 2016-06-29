@@ -13,7 +13,7 @@ class Knoten {
 class VerketteteListe {
 		// ATTRIBUTES
     Knoten head;
-		Knoten tail;
+		int length;
 
 		// INSERT | insert node at beginning of list
 		//
@@ -21,31 +21,31 @@ class VerketteteListe {
 			Knoten node = new Knoten(i);
 			node.next = head;
 			head = node;
-			// if new node is last node
-			if (node.next == null) tail = node;
+			length++;
 		}
 
-		// INSERT | insert new node after specific node
+		// INSERT | insert new node after specific node (if k in list) & return
+		//				|	true, else false
 		//
-		public void insert(int i, Knoten k) {
-			Knoten node = new Knoten(i);
-			node.next = k.next;
-			k.next = node;
-			// if new node is last node
-			if (node.next == null) tail = node;
+		public boolean insert(int i, Knoten k) {
+			// if k is in list
+			if (isElem(k)) {
+				Knoten node = new Knoten(i);
+				node.next = k.next;
+				k.next = node;
+				length++;
+				return true;
+			}
+			return false;
 		}
 
 		// DELETE | delete head of list & return true, else false
 		//
 		public boolean delete() {
-			// if a single element in list
-			if (head != null && head == tail) {
-				head = tail = head.next;
-				return true;
-			}
-			// more than one element in list
-			else if (head != null) {
+			// if at least one elem
+			if (length > 1) {
 				head = head.next;
+				length--;
 				return true;
 			}
 			// list empty
@@ -56,20 +56,18 @@ class VerketteteListe {
 		//
 		public boolean delete(Knoten k) {
 			// if k is head
-			if (head == k) {
-				delete();
-			}
+			if (head == k) return delete();
 			// traverse list
 			for (Knoten node = head; node != null; node = node.next) {
 				// if next node is k
 				if (node.next == k) {
 					// exclude k
 					node.next = k.next;
-					// update tail if needed
-					if (node.next == null) tail = node;
+					length--;
 					return true;
 				}
 			}
+			// k not in list
 			return false;
 		}
 
@@ -90,21 +88,74 @@ class VerketteteListe {
 			}
 			return null;
 		}
+
+		// IS ELEM | return true if k is in the list, else false
+		//
+		public boolean isElem(Knoten k) {
+			// traverse list
+			for (Knoten node = head; node != null; node = node.next) {
+				if (node == k) return true;
+			}
+			return false;
+		}
 }
 
 class VerketteteSchlange extends VerketteteListe {
 
+	Knoten tail;
+
+	// INSERT | insert node at beginning of list
+	//
+	public void insert(int i) {
+		super.insert(i);
+		// if new node is last node
+		if (head.next == null) tail = head;
+	}
+
+	// INSERT | insert new node after specific node
+	//
+	public boolean insert(int i, Knoten k) {
+		// insert node & set tail if new node is last
+		boolean success = super.insert(i,k);
+		if (success && k.next.next == null) tail = k.next;
+		return success;
+	}
+
+	// DELETE | delete head of list & return true, else false
+	//
+	public boolean delete() {
+		// delete head
+		boolean success = super.delete();
+		// update tail if neccessary
+		if (success && length == 0) tail = null;
+		return success;
+	}
+
+	// DELETE | delete node k from list & return true, else false
+	//
+	public boolean delete(Knoten k) {
+		// delete node
+		boolean success = super.delete(k);
+		// if tail deleted
+		if (success && tail == k) {
+			tail = null;
+			// traverse list
+			for (Knoten node = head; node != null; node = node.next) {
+				// update tail
+				if (node.next == null) tail = node;
+			}
+		}
+		return success;
+	}
+
 	// APPEND | append node to end of list
 	//
 	public void append(int i) {
-		Knoten node = new Knoten(i);
 		// if list empty
-		if (head == null) {
-			// single element
-			head = tail = node;
-		}
+		if (length == 0) insert(i);
 		else {
 			// insert after tail & update tail
+			Knoten node = new Knoten(i);
 			tail.next = node;
 			tail = node;
 		}
@@ -112,10 +163,9 @@ class VerketteteSchlange extends VerketteteListe {
 
 	// APPEND | append linked list to end of list
 	//
-	public void append(VerketteteListe l) {
-		// if list empty
-		if (head == null) {
-			// take over list
+	public void append(VerketteteSchlange l) {
+		// if list empty, take over list
+		if (length == 0) {
 			head = l.head;
 			tail = l.tail;
 		}
@@ -134,7 +184,7 @@ class Q53 {
 	public static void main(String [] x) {
 
 			VerketteteSchlange list = new VerketteteSchlange();
-			VerketteteListe list2 = new VerketteteListe();
+			VerketteteSchlange list2 = new VerketteteSchlange();
 			// dummy values
 			for (int i = 10; i > 0; i--) {
 				list.insert(i);
