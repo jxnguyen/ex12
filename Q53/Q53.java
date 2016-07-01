@@ -1,17 +1,16 @@
 
 class Knoten {
-		// ATTRIBUTES
+
 		int value;
     Knoten next;
 
-		// CONSTRUCTOR
     Knoten(int i) {
         this.value = i;
     }
 }
 
 class VerketteteListe {
-		// ATTRIBUTES
+
     Knoten head;
 		int length;
 
@@ -177,7 +176,7 @@ class VerketteteSchlange extends VerketteteListe {
 	}
 }
 
-class Q53 {
+class TestSuite {
 
 	// MAIN
 	//
@@ -188,7 +187,7 @@ class Q53 {
 			// dummy values
 			for (int i = 10; i > 0; i--) {
 				list.insert(i);
-				list2.insert(i*11);
+				list2.insert(i*10);
 			}
 
 			System.out.println("Linked list:");
@@ -201,6 +200,5 @@ class Q53 {
 			System.out.println("Appending 20:");
 			list.append(20);
 			list.traverse();
-
 	}
 }

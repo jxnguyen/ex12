@@ -1,8 +1,6 @@
 package hanoi;
-
 import java.util.HashMap;
 import java.util.Stack;
-
 
 public class Tower {
 
@@ -54,7 +52,7 @@ public class Tower {
 	}
 
 	// ANY MOVE | Make a legal move between start & end.
-	// 
+	//
 	public void anyMove(char start, char end) {
 		try {
 			try {
@@ -121,5 +119,4 @@ public class Tower {
 		result += "    ___   ___   ___\n";
 		return result;
 	}
-
 }
